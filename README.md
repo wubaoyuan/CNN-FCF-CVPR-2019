@@ -3,7 +3,7 @@ This is a Pytorch implementation of our paper "Compressing Convolutional Neural 
 
 ## Table of Contents
 - [Installation](#Installation)
-- [Inference checkpoint files](Inference-checkpoint-files)
+- [Inference checkpoint files](#Inference-checkpoint-files)
 - [Training fcf models](#Training-fcf-models)
   - [Training CIFAR-10](#Training-CIFAR-10)
   - [Training ImageNet](#Training-ImageNet)
