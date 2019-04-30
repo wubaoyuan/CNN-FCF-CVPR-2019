@@ -85,14 +85,13 @@ python inference_imagenet_resnet50.py --model='resnet50' --finetune-model='./che
 We now analyze the realtime reduction rate of our method. Considering that the convolution operation of each filter on GPU is independently, and dozens of process are conducted in parallel, we can not get the realtime reduction rate on GPU. The following experiments are conducted on CPU with ResNet34. 
 
 ### Single layer
-We first present the single layer running time reduction rate, where flops &darr;%, standard convolution realtime &darr;% and customized convolution realtime &darr;% are denoted as the theoretical running time reduction rate, standard convolution running time reduction rate, and our customized convolution reduction rate, respectively. Our customized convolution is composed by squeeze, conv, expand, we also give the proportion of these three operation in the customized convolution, respectively.
-
+We first present the single layer running time reduction rate, our customized convolution is composed by squeeze, conv, expand, we also give the proportion of these three operation in the customized convolution, respectively.
 
 <table class="tg">
   <tr>
-    <th class="tg-uys7" rowspan="2">Theoretical flops &darr;</th>
-    <th class="tg-uys7" rowspan="2">Standard convolution &darr;</th>
-    <th class="tg-uys7" rowspan="2">Customized convolution &darr;</th>
+    <th class="tg-uys7" rowspan="2">Theoretical &darr;</th>
+    <th class="tg-uys7" rowspan="2">Standard realtime &darr;</th>
+    <th class="tg-uys7" rowspan="2">Customized realtime &darr;</th>
     <th class="tg-uys7" colspan="3">Customized convolution</th>
   </tr>
   <tr>
@@ -134,7 +133,11 @@ We first present the single layer running time reduction rate, where flops &darr
   </tr>
 </table>
 
-As shown on the table, the realtime reduction rate is always lower than the theoretical Flops reduction rate, which maybe due to the IO delay, buffer transfer corresponding to the hardware machine. Our customized convolution will cost additional running time for doing the tensor squeeze and expand operations, so the customized convolution realtime &darr;% will be a little lower than the standard convolution realtime &darr;%.
+Noye:
+1.Theoretical &darr;% is denoted as the theoretical flops reduction rate.
+2.Standard realtime &darr;% is denoted as the standard convolution running time reduction rate.
+3.Customized realtime &darr;% is denoted as customized convolution running time reduction rate
+As shown on the table, the realtime reduction rate is always lower than the theoretical flops reduction rate, which maybe due to the IO delay, buffer transfer corresponding to the hardware machine. Our customized convolution will cost additional running time for doing the tensor squeeze and expand operations, so the customized convolution realtime &darr;% will be a little lower than the standard convolution realtime &darr;%.
 
 ### Model inference
 We test the inference running time of the pruned sparse model, the results are shown as follows. In addition to the entire model, we give the flops &darr;% and realtime &darr;% of the total pruned convolution layers in the model, because we only prune the convolution layers to obttain a sparse model.
