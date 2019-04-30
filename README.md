@@ -81,8 +81,7 @@ python inference_imagenet_resnet50.py --model='resnet50' --finetune-model='./mod
 ```
 
 ## Running time analysis
-As written in our paper, due to the short-cut of ResNet, we cannot directly prune the filters. The reason is that the remained filters in two layers connected by the short-cut cannot be aligned. Instead, we obtain a sparse CNN model, when using this sparse CNN model for inference, we design a squeeze-convolution-expand procedure. Specifically, for each sparse convolutional tensor, we firstly squeeze it by removing zero-valued filters to obtain a small dense tensor, then conduct convolution using this small tensor, finally expand the obtained feature map to the original shape by filling zeros. We now analyze the running time reduction rate of this process.
-Considering that the convolution operation of each filter on GPU is independently, and dozens of process are conducted in parallel, we can not get the realtime reduction rate on GPU. The following experiments are conducted on CPU with ResNet34. 
+We now analyze the realtime reduction rate of our method. Considering that the convolution operation of each filter on GPU is independently, and dozens of process are conducted in parallel, we can not get the realtime reduction rate on GPU. The following experiments are conducted on CPU with ResNet34. 
 
 ### Single layer
 We first present the single layer running time reduction rate, where flops &darr;%, standard convolution realtime &darr;% and customized convolution realtime &darr;% are denoted as the theoretical running time reduction rate, standard convolution running time reduction rate, and our customized convolution reduction rate, respectively. Our customized convolution is composed by squeeze, conv, expand, we also give the proportion of these three operation in the customized convolution, respectively.
