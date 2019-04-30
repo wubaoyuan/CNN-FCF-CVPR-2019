@@ -88,47 +88,49 @@ We now analyze the realtime reduction rate of our method. Considering that the c
 We first present the single layer running time reduction rate, where flops &darr;%, standard convolution realtime &darr;% and customized convolution realtime &darr;% are denoted as the theoretical running time reduction rate, standard convolution running time reduction rate, and our customized convolution reduction rate, respectively. Our customized convolution is composed by squeeze, conv, expand, we also give the proportion of these three operation in the customized convolution, respectively.
 
 
-
 <table class="tg">
   <tr>
-    <th class="tg-uys7">Flops &amp;darr;%</th>
-    <th class="tg-uys7">Standard convolution realtime &amp;darr;%</th>
-    <th class="tg-uys7">Customized convolution realtime &amp;darr;%</th>
-    <th class="tg-uys7">Squeeze</th>
-    <th class="tg-c3ow">Conv</th>
-    <th class="tg-c3ow">Expand</th>
+    <th class="tg-uys7" rowspan="2">Theoretical flops &darr;</th>
+    <th class="tg-uys7" rowspan="2">Standard convolution &darr;</th>
+    <th class="tg-uys7" rowspan="2">Customized convolution &darr;</th>
+    <th class="tg-uys7" colspan="3">Customized convolution</th>
   </tr>
   <tr>
-    <td class="tg-c3ow">26.04%</td>
-    <td class="tg-c3ow">17.63%</td>
-    <td class="tg-c3ow">13.42%</td>
-    <td class="tg-c3ow">2.76%</td>
-    <td class="tg-c3ow">92.52%</td>
-    <td class="tg-c3ow">4.72%</td>
+    <td class="tg-uys7">squeeze</td>
+    <td class="tg-uys7">conv</td>
+    <td class="tg-uys7">expand</td>
   </tr>
   <tr>
-    <td class="tg-c3ow">43.75%</td>
-    <td class="tg-c3ow">34.71%</td>
-    <td class="tg-c3ow">30.64%</td>
-    <td class="tg-c3ow">2.91%</td>
-    <td class="tg-c3ow">91.74%</td>
-    <td class="tg-c3ow">5.35%</td>
+    <td class="tg-uys7">26.04%</td>
+    <td class="tg-uys7">17.63%</td>
+    <td class="tg-uys7">13.42%</td>
+    <td class="tg-uys7">2.76%</td>
+    <td class="tg-uys7">92.52%</td>
+    <td class="tg-uys7">4.72%</td>
   </tr>
   <tr>
-    <td class="tg-c3ow">57.75%</td>
-    <td class="tg-c3ow">42.19%</td>
-    <td class="tg-c3ow">40.88%</td>
-    <td class="tg-c3ow">3.01%</td>
-    <td class="tg-c3ow">91.16%</td>
-    <td class="tg-c3ow">5.82%</td>
+    <td class="tg-uys7">43.75%</td>
+    <td class="tg-uys7">34.71%</td>
+    <td class="tg-uys7">30.64%</td>
+    <td class="tg-uys7">2.91%</td>
+    <td class="tg-uys7">91.74%</td>
+    <td class="tg-uys7">5.35%</td>
   </tr>
   <tr>
-    <td class="tg-c3ow">75.00%</td>
-    <td class="tg-c3ow">65.70%</td>
-    <td class="tg-c3ow">59.20%</td>
-    <td class="tg-c3ow">2.27%</td>
-    <td class="tg-c3ow">92.04%</td>
-    <td class="tg-c3ow">5.69%</td>
+    <td class="tg-uys7">57.75%</td>
+    <td class="tg-uys7">42.19%</td>
+    <td class="tg-uys7">40.88%</td>
+    <td class="tg-uys7">3.01%</td>
+    <td class="tg-uys7">91.16%</td>
+    <td class="tg-uys7">5.82%</td>
+  </tr>
+  <tr>
+    <td class="tg-uys7">75.00%</td>
+    <td class="tg-uys7">65.70%</td>
+    <td class="tg-uys7">59.20%</td>
+    <td class="tg-uys7">2.27%</td>
+    <td class="tg-uys7">92.04%</td>
+    <td class="tg-uys7">5.69%</td>
   </tr>
 </table>
 
