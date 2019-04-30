@@ -133,7 +133,7 @@ We first present the single layer running time reduction rate, our customized co
   </tr>
 </table>
 
-Note:<font size="1">  
+Note:<font size="0.2">  
   1.Theoretical &darr;% is denoted as the theoretical flops reduction rate.  
   2.Standard realtime &darr;% is denoted as the standard convolution running time reduction rate.  
   3.Customized realtime &darr;% is denoted as customized convolution running time reduction rate.</font>  
