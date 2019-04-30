@@ -3,6 +3,7 @@ This is a Pytorch implementation of our paper "Compressing Convolutional Neural 
 
 ## Table of Contents
 - [Installation](#Installation)
+- [Inference checkpoint files](Inference-checkpoint-files)
 - [Training fcf models](#Training-fcf-models)
   - [Training CIFAR-10](#Training-CIFAR-10)
   - [Training ImageNet](#Training-ImageNet)
@@ -10,7 +11,6 @@ This is a Pytorch implementation of our paper "Compressing Convolutional Neural 
   - [Finetuning CIFAR-10](#Finetuning-CIFAR-10)
   - [Finetuning ImageNet](#Finetuning-ImageNet)
 - [Inference](#Inference)
-  - [Inference checkpoint files](#Inference-checkpoint-files)
   - [Reproduce the CIFAR-10 results in our paper](#Reproduce-the-CIFAR-10-results-in-our-paper)
   - [Reproduce the ImageNet results in our paper](#Reproduce-the-ImageNet-results-in-our-paper)
 - [Running time analysis](#Running-time-analysis)
@@ -21,63 +21,64 @@ This is a Pytorch implementation of our paper "Compressing Convolutional Neural 
 - TorchVision 0.2.0
 - OSQP
 
-## Training fcf models
-### Training CIFAR-10
-```
-python train_cifar_fcf.py --sparse-rate=0.25 --model='resnet20' --pretrained-model='./basemodels/resnet20_cifar_full.pkl' --checkpoint-name='./checkpoints/normal/resnet20_sparse_025' --best-checkpoint='./checkpoints/best/resnet20_sparse_best_025'
-
-python train_cifar_fcf.py --sparse-rate=0.25 --model='resnet32' --pretrained-model='./basemodels/resnet32_cifar_full.pkl' --checkpoint-name='./checkpoints/normal/resnet32_sparse_025' --best-checkpoint='./checkpoints/best/resnet32_sparse_best_025'
-
-python train_cifar_fcf.py --sparse-rate=0.25 --model='resnet56' --pretrained-model='./basemodels/resnet56_cifar_full.pkl' --checkpoint-name='./checkpoints/normal/resnet56_sparse_025' --best-checkpoint='./checkpoints/best/resnet56_sparse_best_025'
-
-python train_cifar_fcf.py --sparse-rate=0.25 --model='resnet110' --pretrained-model='./basemodels/resnet110_cifar_full.pkl' --checkpoint-name='./checkpoints/normal/resnet110_sparse_025' --best-checkpoint='./checkpoints/best/resnet110_sparse_best_025'
-```
-### Training ImageNet
-```
-python train_imagenet_fcf.py --sparse-rate=0.25 --model='resnet34' --pretrained-model='./basemodels/resnet34_full.pth' --checkpoint-name='./checkpoints/normal/resnet34_sparse_025' --best-checkpoint='./checkpoints/best/resnet34_sparse_best_025'
-
-python train_imagenet_fcf.py --sparse-rate=0.25 --model='resnet50' --pretrained-model='./basemodels/resnet50_full.pth' --checkpoint-name='./checkpoints/normal/resnet50_sparse_025' --best-checkpoint='./checkpoints/best/resnet50_sparse_best_025'
-```
-
-## Finetuning
-Due to the numerical reason, there are still small changes on after binarization, so we usually use finetuning to recover the model performance.
-### Finetuning CIFAR-10
-```
-python finetune_cifar.py --model='resnet20' --fcf-checkpoint='./checkpoints/normal/resnet20_sparse_025.pth.tar' --checkpoint-name='./models/normal/resnet20_finetune_025' --best-checkpoint='./models/best/resnet20_finetune_best_025'
-
-python finetune_cifar.py --model='resnet32' --fcf-checkpoint='./checkpoints/normal/resnet32_sparse_025.pth.tar' --checkpoint-name='./models/normal/resnet32_finetune_025' --best-checkpoint='./models/best/resnet32_finetune_best_025'
-
-python finetune_cifar.py --model='resnet56' --fcf-checkpoint='./checkpoints/normal/resnet56_sparse_025.pth.tar' --checkpoint-name='./models/normal/resnet56_finetune_025' --best-checkpoint='./models/best/resnet56_finetune_best_025'
-
-python finetune_cifar.py --model='resnet110' --fcf-checkpoint='./checkpoints/normal/resnet110_sparse_025.pth.tar' --checkpoint-name='./models/normal/resnet110_finetune_025' --best-checkpoint='./models/best/resnet110_finetune_best_025'
-```
-### Finetuning ImageNet
-```
-python finetune_imagenet.py --model='resnet34' --fcf-checkpoint='./checkpoints/normal/resnet34_sparse_025.pth.tar' --checkpoint-name='./models/normal/resnet34_finetune_best_same025' --best-checkpoint='./models/best/resnet34_finetune_best_same025'
-
-python finetune_imagenet.py --model='resnet50' --fcf-checkpoint='./checkpoints/normal/resnet50_sparse_025.pth.tar' --checkpoint-name='./models/normal/resnet50_finetune_best_same025' --best-checkpoint='./models/best/resnet50_finetune_best_same025'
-```
-
-## Inference
 ### Inference checkpoint files
 The trained models files can be found in [google drive](https://drive.google.com/drive/folders/1VGqpOhAGe9YQcyZTGbzitsLuELjQdsXW?usp=sharing).
 
+## Training fcf models
+### Training CIFAR-10
+```
+python train_cifar_fcf.py --sparse-rate=0.25 --model='resnet20' --pretrained-model='./checkpoints/pretrain/resnet20_cifar_full.pkl' --checkpoint-name='./checkpoints/fcf/resnet20_sparse_025'
+
+python train_cifar_fcf.py --sparse-rate=0.25 --model='resnet32' --pretrained-model='./checkpoints/pretrain/resnet32_cifar_full.pkl' --checkpoint-name='./checkpoints/fcf/resnet32_sparse_025'
+
+python train_cifar_fcf.py --sparse-rate=0.25 --model='resnet56' --pretrained-model='./checkpoints/pretrain/resnet56_cifar_full.pkl' --checkpoint-name='./checkpoints/fcf/resnet56_sparse_025'
+
+python train_cifar_fcf.py --sparse-rate=0.25 --model='resnet110' --pretrained-model='./checkpoints/pretrain/resnet110_cifar_full.pkl' --checkpoint-name='./checkpoints/fcf/resnet110_sparse_025'
+```
+### Training ImageNet
+```
+python train_imagenet_fcf.py --sparse-rate=0.25 --model='resnet34' --pretrained-model='./checkpoints/pretrain/resnet34_full.pth' --checkpoint-name='./checkpoints/fcf/resnet34_sparse_025'
+
+python train_imagenet_fcf.py --sparse-rate=0.31 --model='resnet50' --pretrained-model='./checkpoints/pretrain/resnet50_full.pth' --checkpoint-name='./checkpoints/fcf/resnet50_sparse_031'
+```
+
+## Finetuning
+Due to the numerical reason, there are still small changes after binarization, so we usually use finetuning to recover the model performance.
+### Finetuning CIFAR-10
+```
+python finetune_cifar.py --model='resnet20' --fcf-checkpoint='./checkpoints/fcf/resnet20_sparse_025.pth.tar' --best-checkpoint='./checkpoints/inference/resnet20_finetune_best_025'
+
+python finetune_cifar.py --model='resnet32' --fcf-checkpoint='./checkpoints/fcf/resnet32_sparse_025.pth.tar' --best-checkpoint='./checkpoints/inference/resnet32_finetune_best_025'
+
+python finetune_cifar.py --model='resnet56' --fcf-checkpoint='./checkpoints/fcf/resnet56_sparse_025.pth.tar' --best-checkpoint='./checkpoints/inference/resnet56_finetune_best_025'
+
+python finetune_cifar.py --model='resnet110' --fcf-checkpoint='./checkpoints/fcf/resnet110_sparse_025.pth.tar' --best-checkpoint='./checkpoints/inference/resnet110_finetune_best_025'
+```
+### Finetuning ImageNet
+```
+python finetune_imagenet.py --model='resnet34' --fcf-checkpoint='./checkpoints/fcf/resnet34_sparse_025.pth.tar' --best-checkpoint='./checkpoints/inference/resnet34_finetune_best_same025'
+
+python finetune_imagenet.py --model='resnet50' --fcf-checkpoint='./checkpoints/fcf/resnet50_sparse_025.pth.tar' --best-checkpoint='./checkpoints/inference/resnet50_finetune_best_same031'
+```
+
+## Inference
+
 ### Reproduce the CIFAR-10 results in our paper
 ```
-python inference_cifar.py --model='resnet20' --n=6 --reference-model='./basemodels/resnet20_cifar_full.pkl' --finetune-model='./models/resnet20_finetune_best_025.pth.tar'
+python inference_cifar.py --model='resnet20' --n=6 --finetune-model='./checkpoints/inference/resnet20_finetune_best_025.pth.tar'
 
-python inference_cifar.py --model='resnet32' --n=10 --reference-model='./basemodels/resnet32_cifar_full.pkl' --finetune-model='./models/resnet32_finetune_best_025.pth.tar'
+python inference_cifar.py --model='resnet32' --n=10 --finetune-model='./checkpoints/inference/resnet32_finetune_best_025.pth.tar'
 
-python inference_cifar.py --model='resnet56' --n=18 --reference-model='./basemodels/resnet56_cifar_full.pkl' --finetune-model='./models/resnet56_finetune_best_025.pth.tar'
+python inference_cifar.py --model='resnet56' --n=18 --finetune-model='./checkpoints/inference/resnet56_finetune_best_025.pth.tar'
 
-python inference_cifar.py --model='resnet110' --n=36 --reference-model='./basemodels/resnet110_cifar_full.pkl' --finetune-model='./models/resnet110_finetune_best_025.pth.tar'
+python inference_cifar.py --model='resnet110' --n=36 --finetune-model='./checkpoints/inference/resnet110_finetune_best_025.pth.tar'
 ```
 
 ### Reproduce the ImageNet results in our paper
 ```
-python inference_imagenet_resnet34.py --model='resnet34' --finetune-model='./models/finetune_resnet34_best_same015.pth.tar'
+python inference_imagenet_resnet34.py --model='resnet34' -finetune-model='./checkpoints/inference/finetune_resnet34_best_same015.pth.tar'
 
-python inference_imagenet_resnet50.py --model='resnet50' --finetune-model='./models/finetune_resnet50_best_same018.pth.tar'
+python inference_imagenet_resnet50.py --model='resnet50' --finetune-model='./checkpoints/inference/finetune_resnet50_best_same031.pth.tar'
 ```
 
 ## Running time analysis
