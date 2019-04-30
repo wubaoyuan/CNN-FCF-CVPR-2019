@@ -87,12 +87,56 @@ We now analyze the realtime reduction rate of our method. Considering that the c
 ### Single layer
 We first present the single layer running time reduction rate, where flops &darr;%, standard convolution realtime &darr;% and customized convolution realtime &darr;% are denoted as the theoretical running time reduction rate, standard convolution running time reduction rate, and our customized convolution reduction rate, respectively. Our customized convolution is composed by squeeze, conv, expand, we also give the proportion of these three operation in the customized convolution, respectively.
 
-| Flops &darr;% | Standard convolution realtime &darr;% | Customized convolution realtime &darr;% | Squeeze |  Conv  | Expand |
-|:-------------:|:-------------------------------------:|:---------------------------------------:|:-------:|:------:|:------:|
-|     26.04%    |                 17.63%                |                  13.42%                 |  2.76%  | 92.52% |  4.72% |
-|     43.75%    |                 34.71%                |                  30.64%                 |  2.91%  | 91.74% |  5.35% |
-|     57.75%    |                 42.19%                |                  40.88%                 |  3.01%  | 91.16% |  5.82% |
-|     75.00%    |                 65.70%                |                  59.20%                 |  2.27%  | 92.04% |  5.69% |
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
+.tg .tg-uys7{border-color:inherit;text-align:center}
+</style>
+<table class="tg">
+  <tr>
+    <th class="tg-uys7">Flops &amp;darr;%</th>
+    <th class="tg-uys7">Standard convolution realtime &amp;darr;%</th>
+    <th class="tg-uys7">Customized convolution realtime &amp;darr;%</th>
+    <th class="tg-uys7">Squeeze</th>
+    <th class="tg-c3ow">Conv</th>
+    <th class="tg-c3ow">Expand</th>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">26.04%</td>
+    <td class="tg-c3ow">17.63%</td>
+    <td class="tg-c3ow">13.42%</td>
+    <td class="tg-c3ow">2.76%</td>
+    <td class="tg-c3ow">92.52%</td>
+    <td class="tg-c3ow">4.72%</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">43.75%</td>
+    <td class="tg-c3ow">34.71%</td>
+    <td class="tg-c3ow">30.64%</td>
+    <td class="tg-c3ow">2.91%</td>
+    <td class="tg-c3ow">91.74%</td>
+    <td class="tg-c3ow">5.35%</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">57.75%</td>
+    <td class="tg-c3ow">42.19%</td>
+    <td class="tg-c3ow">40.88%</td>
+    <td class="tg-c3ow">3.01%</td>
+    <td class="tg-c3ow">91.16%</td>
+    <td class="tg-c3ow">5.82%</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">75.00%</td>
+    <td class="tg-c3ow">65.70%</td>
+    <td class="tg-c3ow">59.20%</td>
+    <td class="tg-c3ow">2.27%</td>
+    <td class="tg-c3ow">92.04%</td>
+    <td class="tg-c3ow">5.69%</td>
+  </tr>
+</table>
 
 As shown on the table, the realtime reduction rate is always lower than the theoretical Flops reduction rate, which maybe due to the IO delay, buffer transfer corresponding to the hardware machine. Our customized convolution will cost additional running time for doing the tensor squeeze and expand operations, so the customized convolution realtime &darr;% will be a little lower than the standard convolution realtime &darr;%.
 
