@@ -21,7 +21,7 @@ This is a Pytorch implementation of our paper "Compressing Convolutional Neural 
 - TorchVision 0.2.0
 - OSQP
 
-### Inference checkpoint files
+## Inference checkpoint files
 The trained models files can be found in [google drive](https://drive.google.com/drive/folders/1VGqpOhAGe9YQcyZTGbzitsLuELjQdsXW?usp=sharing).
 
 ## Training fcf models
