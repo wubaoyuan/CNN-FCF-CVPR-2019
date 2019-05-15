@@ -134,7 +134,7 @@ We first present the single layer running time reduction rate, our customized co
 </table>
 
 Note:  
-<font size=0.1>1. Theoretical &darr;% is denoted as the theoretical flops reduction rate.</font>  
+<font size=10>1. Theoretical &darr;% is denoted as the theoretical flops reduction rate.</font>  
 <font size=1>2. Standard realtime &darr;% is denoted as the standard convolution running time reduction rate.</font>  
 <font size=1>3. Customized realtime &darr;% is denoted as customized convolution running time reduction rate.</font>  
   As shown on the table, the realtime reduction rate is always lower than the theoretical flops reduction rate, which maybe due to the IO delay, buffer transfer corresponding to the hardware machine. Our customized convolution will cost additional running time for doing the tensor squeeze and expand operations, so the customized convolution realtime &darr;% will be a little lower than the standard convolution realtime &darr;%.
@@ -150,3 +150,4 @@ We test the inference running time of the pruned sparse model, the results are s
 |        66.05%       |         42.59%         |              68.80%              |                55.09%               |
 
 As shown on the table, the convolution layers realtime &darr;% is lower than the theoretical convolution layers flops &darr;%, the reason is same as the single layer results. Due to the time cost in the BN layers, Relu and Fully-connected layers, the model realtime &darr;% is lower than convolution layers realtime &darr;%. In general, the realtime reduction of the pruned convolution layers is consistent with the theoretical flops &darr;%.
+<font size=10>1. Theoretical &darr;% is denoted as the theoretical flops reduction rate.</font> 
