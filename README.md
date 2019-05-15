@@ -142,7 +142,7 @@ As shown on the table, the realtime reduction rate is always lower than the theo
 #### Model inference
 We test the inference running time of the pruned sparse model, the results are shown as follows. In addition to the entire model, we give the flops &darr;% and realtime &darr;% of the total pruned convolution layers in the model, because we only prune the convolution layers to obttain a sparse model.
 
-| Model flops &darr;% | Model realtime &darr;% | Convolution layers flops &darr;% | Convolution layers realtime &darr;% |
+| Model flops &darr;  | Model realtime &darr;  | Convolution layers flops &darr;  | Convolution layers realtime &darr;  |
 |---------------------|------------------------|----------------------------------|-------------------------------------|
 |        26.83%       |         10.90%         |              27.95%              |                16.13%               |
 |        41.37%       |         16.86%         |              43.10%              |                23.77%               |
