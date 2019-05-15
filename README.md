@@ -150,4 +150,10 @@ We test the inference running time of the pruned sparse model, the results are s
 |        66.05%       |         42.59%         |              68.80%              |                55.09%               |
 
 As shown on the table, the convolution layers realtime &darr;% is lower than the theoretical convolution layers flops &darr;%, the reason is same as the single layer results. Due to the time cost in the BN layers, Relu and Fully-connected layers, the model realtime &darr;% is lower than convolution layers realtime &darr;%. In general, the realtime reduction of the pruned convolution layers is consistent with the theoretical flops &darr;%.
-<font size=10>1. Theoretical &darr;% is denoted as the theoretical flops reduction rate.</font> 
+<font face="黑体">我是黑体字</font>
+<font face="微软雅黑">我是微软雅黑</font>
+<font face="STCAIYUN">我是华文彩云</font>
+<font color=#0099ff size=12 face="黑体">黑体</font>
+<font color=#00ffff size=3>null</font>
+<font color=gray size=5>gray</font>
+
