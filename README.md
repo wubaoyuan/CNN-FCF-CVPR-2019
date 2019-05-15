@@ -19,13 +19,13 @@ This is a Pytorch implementation of our paper "Compressing Convolutional Neural 
 - Python 3.6
 - PyTorch 0.3.1
 - TorchVision 0.2.0
-- OSQP
+- [OSQP](https://osqp.org/docs/get_started/python.html)
 
 ## Inference checkpoint files
-The trained models files can be found in [google drive](https://drive.google.com/drive/folders/1VGqpOhAGe9YQcyZTGbzitsLuELjQdsXW?usp=sharing).
+The trained models files can be found in [google drive](https://drive.google.com/drive/folders/1VGqpOhAGe9YQcyZTGbzitsLuELjQdsXW?usp=sharing), which can be used to reproduce the results of our paper.
 
 ## Training fcf models
-### Training CIFAR-10
+#### Training CIFAR-10
 ```
 python train_cifar_fcf.py --sparse-rate=0.25 --model='resnet20' --pretrained-model='./checkpoints/pretrain/resnet20_cifar_full.pkl' --checkpoint-name='./checkpoints/fcf/resnet20_sparse_025'
 
@@ -35,7 +35,7 @@ python train_cifar_fcf.py --sparse-rate=0.25 --model='resnet56' --pretrained-mod
 
 python train_cifar_fcf.py --sparse-rate=0.25 --model='resnet110' --pretrained-model='./checkpoints/pretrain/resnet110_cifar_full.pkl' --checkpoint-name='./checkpoints/fcf/resnet110_sparse_025'
 ```
-### Training ImageNet
+#### Training ImageNet
 ```
 python train_imagenet_fcf.py --sparse-rate=0.25 --model='resnet34' --pretrained-model='./checkpoints/pretrain/resnet34_full.pth' --checkpoint-name='./checkpoints/fcf/resnet34_sparse_025'
 
@@ -43,8 +43,8 @@ python train_imagenet_fcf.py --sparse-rate=0.31 --model='resnet50' --pretrained-
 ```
 
 ## Finetuning
-Due to the numerical reason, there are still small changes after binarization, so we usually use finetuning to recover the model performance.
-### Finetuning CIFAR-10
+Due to the numerical reason, there are still small changes after optimization, so we usually use finetuning to recover the model performance.
+#### Finetuning CIFAR-10
 ```
 python finetune_cifar.py --model='resnet20' --fcf-checkpoint='./checkpoints/fcf/resnet20_sparse_025.pth.tar' --best-checkpoint='./checkpoints/inference/resnet20_finetune_best_025'
 
@@ -54,7 +54,7 @@ python finetune_cifar.py --model='resnet56' --fcf-checkpoint='./checkpoints/fcf/
 
 python finetune_cifar.py --model='resnet110' --fcf-checkpoint='./checkpoints/fcf/resnet110_sparse_025.pth.tar' --best-checkpoint='./checkpoints/inference/resnet110_finetune_best_025'
 ```
-### Finetuning ImageNet
+#### Finetuning ImageNet
 ```
 python finetune_imagenet.py --model='resnet34' --fcf-checkpoint='./checkpoints/fcf/resnet34_sparse_025.pth.tar' --best-checkpoint='./checkpoints/inference/resnet34_finetune_best_same025'
 
@@ -63,7 +63,7 @@ python finetune_imagenet.py --model='resnet50' --fcf-checkpoint='./checkpoints/f
 
 ## Inference
 
-### Reproduce the CIFAR-10 results in our paper
+#### Reproduce the CIFAR-10 results in our paper
 ```
 python inference_cifar.py --model='resnet20' --n=6 --finetune-model='./checkpoints/inference/resnet20_finetune_best_025.pth.tar'
 
@@ -74,7 +74,7 @@ python inference_cifar.py --model='resnet56' --n=18 --finetune-model='./checkpoi
 python inference_cifar.py --model='resnet110' --n=36 --finetune-model='./checkpoints/inference/resnet110_finetune_best_025.pth.tar'
 ```
 
-### Reproduce the ImageNet results in our paper
+#### Reproduce the ImageNet results in our paper
 ```
 python inference_imagenet_resnet34.py --model='resnet34' -finetune-model='./checkpoints/inference/finetune_resnet34_best_same015.pth.tar'
 
@@ -84,8 +84,8 @@ python inference_imagenet_resnet50.py --model='resnet50' --finetune-model='./che
 ## Running time analysis
 We now analyze the realtime reduction rate of our method. Considering that the convolution operation of each filter on GPU is independently, and dozens of process are conducted in parallel, we can not get the realtime reduction rate on GPU. The following experiments are conducted on CPU with ResNet34. 
 
-### Single layer
-We first present the single layer running time reduction rate, our customized convolution is composed by squeeze, conv, expand, we also give the proportion of these three operation in the customized convolution, respectively.
+#### Single layer
+We first present the single layer running time reduction rate, our customized convolution is composed by squeeze, conv, expand, we also give the proportion of these three operations in the customized convolution, respectively.
 
 <table class="tg">
   <tr>
@@ -139,7 +139,7 @@ Note:
   <font size="1">3.Customized realtime &darr;% is denoted as customized convolution running time reduction rate.</font>  
   As shown on the table, the realtime reduction rate is always lower than the theoretical flops reduction rate, which maybe due to the IO delay, buffer transfer corresponding to the hardware machine. Our customized convolution will cost additional running time for doing the tensor squeeze and expand operations, so the customized convolution realtime &darr;% will be a little lower than the standard convolution realtime &darr;%.
 
-### Model inference
+#### Model inference
 We test the inference running time of the pruned sparse model, the results are shown as follows. In addition to the entire model, we give the flops &darr;% and realtime &darr;% of the total pruned convolution layers in the model, because we only prune the convolution layers to obttain a sparse model.
 
 | Model flops &darr;% | Model realtime &darr;% | Convolution layers flops &darr;% | Convolution layers realtime &darr;% |
