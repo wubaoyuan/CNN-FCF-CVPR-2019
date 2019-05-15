@@ -89,7 +89,7 @@ We first present the single layer running time reduction rate, our customized co
 
 <table class="tg">
   <tr>
-    <th class="tg-uys7" rowspan="2">Theoretical &darr;</th>
+    <th class="tg-uys7" rowspan="2">Theoretical flops &darr;</th>
     <th class="tg-uys7" rowspan="2">Standard realtime &darr;</th>
     <th class="tg-uys7" rowspan="2">Customized realtime &darr;</th>
     <th class="tg-uys7" colspan="3">Customized convolution</th>
@@ -134,9 +134,9 @@ We first present the single layer running time reduction rate, our customized co
 </table>
 
 Note:  
-  <font size=1>1.Theoretical &darr;% is denoted as the theoretical flops reduction rate.</font>  
-  <font size=1>2.Standard realtime &darr;% is denoted as the standard convolution running time reduction rate.</font>  
-  <font size=1>3.Customized realtime &darr;% is denoted as customized convolution running time reduction rate.</font>  
+<font size=1>1. Theoretical &darr;% is denoted as the theoretical flops reduction rate.</font>  
+<font size=1>2. Standard realtime &darr;% is denoted as the standard convolution running time reduction rate.</font>  
+<font size=1>3. Customized realtime &darr;% is denoted as customized convolution running time reduction rate.</font>  
   As shown on the table, the realtime reduction rate is always lower than the theoretical flops reduction rate, which maybe due to the IO delay, buffer transfer corresponding to the hardware machine. Our customized convolution will cost additional running time for doing the tensor squeeze and expand operations, so the customized convolution realtime &darr;% will be a little lower than the standard convolution realtime &darr;%.
 
 #### Model inference
