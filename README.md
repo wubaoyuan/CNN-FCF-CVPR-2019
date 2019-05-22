@@ -82,7 +82,7 @@ python inference_imagenet_resnet50.py --model='resnet50' --finetune-model='./che
 ```
 
 ## Running time analysis
-We now analyze the realtime reduction rate of our method. Considering that the convolution operation of each filter on GPU is independently, and dozens of process are conducted in parallel, we can not get the realtime reduction rate on GPU. The following experiments are conducted on CPU with ResNet34. 
+We now analyze the running time reduction rate of our method. Considering that the convolution operation of each filter on GPU is independently, and dozens of process are conducted in parallel, we can not get the realtime reduction rate on GPU. The following experiments are conducted on CPU with ResNet34. 
 
 #### Single layer
 We first present the single layer running time reduction rate, our customized convolution is composed by squeeze, conv, expand, we also give the proportion of these three operations in the customized convolution, respectively.
@@ -135,13 +135,13 @@ We first present the single layer running time reduction rate, our customized co
 
 Note:  
 1. Theoretical flops &darr; is denoted as the theoretical flops reduction rate.  
-2. Standard realtime &darr; is denoted as the standard convolution running time reduction rate.  
-3. Customized realtime &darr; is denoted as customized convolution running time reduction rate.  
+2. Standard running time &darr; is denoted as the standard convolution running time reduction rate.  
+3. Customized running time &darr; is denoted as customized convolution running time reduction rate.  
 
 As shown on the table, the realtime reduction rate is always lower than the theoretical flops reduction rate, which maybe due to the IO delay, buffer transfer corresponding to the hardware machine. Our customized convolution will cost additional running time for doing the tensor squeeze and expand operations, so the customized convolution realtime &darr; will be a little lower than the standard convolution realtime &darr;.
 
-#### Model inference
-We test the inference running time of the pruned sparse model, the results are shown as follows. In addition to the entire model, we give the flops &darr; and realtime &darr; of the total pruned convolution layers in the model, because we only prune the convolution layers to obttain a sparse model.
+#### The model
+We present the running time of the pruned model conresponds to the reference model, the reduction rates are shown as follows. In addition to the whole model, we also give the flops &darr; and realtime &darr; of the total pruned convolution layers, because we only prune the convolution layers in ResNet structures to obttain a sparse pruned model.
 
 | Model flops &darr;  | Model running time &darr;  | Convolution layers flops &darr;  | Convolution layers running time &darr;  |
 |---------------------|------------------------|----------------------------------|-------------------------------------|
@@ -150,5 +150,5 @@ We test the inference running time of the pruned sparse model, the results are s
 |        54.87%       |         31.06%         |              57.16%              |                41.12%               |
 |        66.05%       |         42.59%         |              68.80%              |                55.09%               |
 
-As shown on the table, the convolution layers realtime &darr; is lower than the theoretical convolution layers flops &darr;, the reason is same as the single layer results. Due to the time cost in the BN, Relu and Fully-connected layers, the model realtime &darr; is lower than convolution layers realtime &darr;. In general, the realtime reduction of the pruned convolution layers is consistent with the theoretical flops &darr;.
+As shown on the table, the convolution layers running time &darr; is lower than the theoretical convolution layers flops &darr;, the reason is similar to the single layer results. Moreover, due to the time cost in the BN, Relu and Fully-connected layers, the model running time &darr; is lower than convolution layers running time &darr;. In general, the running time reduction of the pruned convolution layers is consistent with the theoretical flops &darr;.
 
