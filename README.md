@@ -76,7 +76,7 @@ python inference_cifar.py --model='resnet110' --n=36 --finetune-model='./checkpo
 
 #### Reproduce the ImageNet results in our paper
 ```
-python inference_imagenet_resnet34.py --model='resnet34' -finetune-model='./checkpoints/inference/finetune_resnet34_best_same015.pth.tar'
+python inference_imagenet_resnet34.py --model='resnet34' --finetune-model='./checkpoints/inference/finetune_resnet34_best_same015.pth.tar'
 
 python inference_imagenet_resnet50.py --model='resnet50' --finetune-model='./checkpoints/inference/finetune_resnet50_best_same031.pth.tar'
 ```
