@@ -2,7 +2,7 @@
 This is a Pytorch implementation of our paper "Compressing Convolutional Neural Networks via Factorized Convolutional Filters" published in CVPR 2019.
 
 ## Table of Contents
-- [Installation](#Installation)
+- [Requirements](#Requirements)
 - [Inference checkpoint files](#Inference-checkpoint-files)
 - [Training fcf models](#Training-fcf-models)
   - [Training CIFAR-10](#Training-CIFAR-10)
@@ -15,7 +15,7 @@ This is a Pytorch implementation of our paper "Compressing Convolutional Neural 
   - [Reproduce the ImageNet results in our paper](#Reproduce-the-ImageNet-results-in-our-paper)
 - [Running time analysis](#Running-time-analysis)
 
-## Installation
+## Requirements
 - Python 3.6
 - PyTorch 0.3.1
 - TorchVision 0.2.0
