@@ -90,14 +90,14 @@ We first present the single layer running time reduction rate, our customized co
 <table class="tg">
   <tr>
     <th class="tg-uys7" rowspan="2">Theoretical flops &darr;</th>
-    <th class="tg-uys7" rowspan="2">Standard realtime &darr;</th>
-    <th class="tg-uys7" rowspan="2">Customized realtime &darr;</th>
+    <th class="tg-uys7" rowspan="2">Standard running time &darr;</th>
+    <th class="tg-uys7" rowspan="2">Customized running time &darr;</th>
     <th class="tg-uys7" colspan="3">Customized convolution</th>
   </tr>
   <tr>
-    <td class="tg-uys7">squeeze</td>
-    <td class="tg-uys7">conv</td>
-    <td class="tg-uys7">expand</td>
+    <td class="tg-uys7">Squeeze</td>
+    <td class="tg-uys7">Conv</td>
+    <td class="tg-uys7">Expand</td>
   </tr>
   <tr>
     <td class="tg-uys7">26.04%</td>
@@ -143,7 +143,7 @@ As shown on the table, the realtime reduction rate is always lower than the theo
 #### Model inference
 We test the inference running time of the pruned sparse model, the results are shown as follows. In addition to the entire model, we give the flops &darr; and realtime &darr; of the total pruned convolution layers in the model, because we only prune the convolution layers to obttain a sparse model.
 
-| Model flops &darr;  | Model realtime &darr;  | Convolution layers flops &darr;  | Convolution layers realtime &darr;  |
+| Model flops &darr;  | Model running time &darr;  | Convolution layers flops &darr;  | Convolution layers running time &darr;  |
 |---------------------|------------------------|----------------------------------|-------------------------------------|
 |        26.83%       |         10.90%         |              27.95%              |                16.13%               |
 |        41.37%       |         16.86%         |              43.10%              |                23.77%               |
