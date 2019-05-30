@@ -3,20 +3,18 @@ os.environ["CUDA_VISIBLE_DEVICES"]= '7'
 
 import torch
 import torch.nn as nn
-import torch.optim as optim
 from torch.autograd import Variable
 
-from datetime import datetime
 import numpy as np
 
 
-from tools import *
+from functions import *
 from models import *
-import time
+
 import argparse
 
 
-parser = argparse.ArgumentParser(description='CIFAR-10 inference')
+parser = argparse.ArgumentParser(description='Inference a cnn model on CIFAR-10')
 
 parser.add_argument('--batch-size', default=50, type=int, metavar='N',
                     help='mini-batch size')
@@ -56,12 +54,12 @@ def main():
     for cfg in cfgs :
         cfg_list.extend(cfg)
         
-    pruned_model=training_models[args.model](mode='inference', ones_list=ones_list, output_list = cfg_list)
-    pruned_model = pruned_model.eval().cuda()
+    inference_model = training_models[args.model](mode='inference', ones_list=ones_list, output_list = cfg_list)
+    inference_model = inference_model.eval().cuda()
 
     #assign parameters
     i=1
-    for [m0, m1] in zip(finetune_model.modules(), pruned_model.modules()):   #assign value for pruned_model
+    for [m0, m1] in zip(finetune_model.modules(), inference_model.modules()):   #assign value for inference_model
         if isinstance(m0, nn.Conv2d):
             if m0.kernel_size == (1,1):  #down-sampling convolution.
                 m1.weight.data = m0.weight.data.clone()
@@ -89,21 +87,21 @@ def main():
     
     #theoretical compressing rate
     full_model = training_models[args.model](mode='full').cuda()
-    pruned_parameters = sum([param.nelement() for param in pruned_model.parameters()])
+    inference_parameters = sum([param.nelement() for param in inference_model.parameters()])
     full_parameters = sum([param.nelement() for param in full_model.parameters()])
-    print('parameters sparse rate:{}'.format(1-float(pruned_parameters)/full_parameters))
+    print('parameters sparse rate:{}'.format(1-float(inference_parameters)/full_parameters))
 
     #theoretical reduced flops rate
     test_data = Variable(torch.randn(1,3,32,32)).cuda()
     full_flops = calculate_flops(full_model, test_data)
-    pruned_flops = calculate_flops(pruned_model, test_data)
-    print('flops sparse rate:{}'.format(1-float(pruned_flops) / full_flops))
+    inference_flops = calculate_flops(inference_model, test_data)
+    print('flops sparse rate:{}'.format(1-float(inference_flops) / full_flops))
     
     
     testloader = cifar10_testdata(args.batch_size)
     criterion = nn.CrossEntropyLoss()
     validate(testloader, finetune_model, criterion)
-    validate(testloader, pruned_model, criterion)
+    validate(testloader, inference_model, criterion)
 
 
 def validate(testloader, model, criterion):

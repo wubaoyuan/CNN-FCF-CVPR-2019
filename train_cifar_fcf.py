@@ -7,40 +7,36 @@ import torch.optim as optim
 from torch.autograd import Variable
 
 from datetime import datetime
-import numpy as np
-import shutil
 import argparse
 
-from tools import *
+from functions import *
 from models import *
 
-parser = argparse.ArgumentParser(description='PyTorch CIFAR-10 Training')
+parser = argparse.ArgumentParser(description='Training a cnn-fcf model on CIFAR-10')
 
 parser.add_argument('--epochs', default=30, type=int, metavar='N',
                     help='number of total epochs to run')
 parser.add_argument('--decay-epochs', default=10, type=int,
                     help='number of epochs to decay the learning rate')
-parser.add_argument('--start-epoch', default=0, type=int, metavar='N',
-                    help='manual epoch number (useful on restarts)')
 parser.add_argument('--print-freq', '-p', default=100, type=int,
-                    metavar='N', help='print frequency (default: 10)')
+                    metavar='N', help='print frequency')
 parser.add_argument('-b', '--batch-size', default=128, type=int,
-                    metavar='N', help='mini-batch size (default: 256)')
+                    metavar='N', help='mini-batch size')
 parser.add_argument('--lr', '--learning-rate', default=0.1, type=float,
                     metavar='LR', help='initial learning rate')
 parser.add_argument('--alpha', default=0.99, type=float,
                     help='the trade-off between the cnn and admm')
 parser.add_argument('--sparse-rate', default=0.25, type=float,
                     help='the filter pruning ratio')
-parser.add_argument('--pretrained-model', default='./checkpoints/pretrain/resnet20_cifar_full.pkl', type=str,
-                    help='the path to save the best result')
 parser.add_argument('--model', default='resnet20', type=str,
                     help='choose the model')
 parser.add_argument('--training-mode', default='sparse', type=str,
                     help='choose the training mode')
 parser.add_argument('--sparse-mode', default='identical_ratio', type=str,
                     help='choose the mode to set sparse rate')
-parser.add_argument('--checkpoint-name', default='./checkpoints/fcf/resnet20_sparse_015', type=str,
+parser.add_argument('--pretrained-model', default='./checkpoints/pretrain/resnet20_cifar_full.pkl', type=str,
+                    help='the path to save the best result')
+parser.add_argument('--checkpoint-name', default='./checkpoints/fcf/resnet20_sparse_025', type=str,
                     help='the path to save the checkpoint')
 
 
@@ -73,8 +69,7 @@ def main():
     train_accuracy=[]
     test_accuracy=[]
     test_loss=[]
-    pruning_accuracy=[] 
-    for epoch in range(args.start_epoch, args.epochs):
+    for epoch in range(args.epochs):
         if epoch ==10:   
             for param_group in optimizer.param_groups:
                 param_group['lr']=param_group['lr']*0.1
@@ -94,8 +89,7 @@ def main():
         
         np_v_list = store_v(model)
         pruning_prec1, _= validate(testloader, model, criterion)
-        reload_v(model, np_v_list)
-        pruning_accuracy.append(pruning_prec1)  
+        reload_v(model, np_v_list) 
         
         # remember best prec@1 and save checkpoint
         is_best = prec1 > best_prec1
@@ -157,7 +151,7 @@ def train(args, trainloader, model, criterion, optimizer, epoch):
         #update y1,y2,rho
         for m in model.modules():
             if isinstance(m, SparseConv2d):
-                    admm_update2(m,True)
+                admm_update2(m,True)
 
         if i % args.print_freq == 0:
             print('[epoch:{}/{} , iter:{}/{}] Loss: {:.6f}, Acc: {:.6f}'.format(epoch + 1, args.epochs, i, length, running_loss / (args.batch_size * i),running_acc / (args.batch_size * i)))

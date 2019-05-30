@@ -1,25 +1,22 @@
 import argparse
-import shutil
 from datetime import datetime
 import os
-os.environ["CUDA_VISIBLE_DEVICES"] = '4,5,6,7'
+os.environ["CUDA_VISIBLE_DEVICES"] = '0,1,2,3'
 
 import torch
 import torch.nn as nn
 
 
-from tools import *
+from functions import *
 from models import *
 
 
-parser = argparse.ArgumentParser(description='PyTorch ImageNet Training')
+parser = argparse.ArgumentParser(description='Finetune a cnn model on ImageNet')
 
 parser.add_argument('--epochs', default=90, type=int, metavar='N',
                     help='number of total epochs to run')
 parser.add_argument('--decay-epochs', default=30, type=int,
                     help='number of epochs to decay the learning rate')
-parser.add_argument('--start-epoch', default=0, type=int, metavar='N',
-                    help='manual epoch number (useful on restarts)')
 parser.add_argument('-b', '--batch-size', default=256, type=int,
                     metavar='N', help='mini-batch size (default: 256)')
 parser.add_argument('--lr', '--learning-rate', default=0.01, type=float,
@@ -27,13 +24,14 @@ parser.add_argument('--lr', '--learning-rate', default=0.01, type=float,
 parser.add_argument('--momentum', default=0.9, type=float, metavar='M',
                     help='momentum')
 parser.add_argument('--weight-decay', '--wd', default=1e-4, type=float,
-                    metavar='W', help='weight decay (default: 1e-4)')
+                    metavar='W', help='weight decay')
 parser.add_argument('--print-freq', '-p', default=100, type=int,
                     metavar='N', help='print frequency')
-parser.add_argument('--fcf-checkpoint', default='./checkpoints/fcf/sparse_resnet34_same025.pth.tar', type=str,
-                    help='the path to save the best result')
 parser.add_argument('--model', default='resnet34', type=str,
                     help='choose the training mode')
+
+parser.add_argument('--fcf-checkpoint', default='./checkpoints/fcf/sparse_resnet34_same025.pth.tar', type=str,
+                    help='the path to save the best result')
 parser.add_argument('--best-checkpoint', default='./checkpoints/inference/finetune_resnet34_best_same025', type=str,
                     help='the path to save the best result')
 
@@ -65,13 +63,12 @@ def main():
     criterion = nn.CrossEntropyLoss()
     optimizer = torch.optim.SGD(model.parameters(), args.lr, momentum=args.momentum, weight_decay=args.weight_decay)
     
-    validate(args, testloader, model, criterion)
 
     train_loss=[]
     train_accuracy=[]
     test_accuracy=[]
     test_loss=[]
-    for epoch in range(args.start_epoch, args.epochs):
+    for epoch in range(args.epochs):
         adjust_learning_rate(optimizer, epoch)
     
         prec1_tr,loss_tr=train(args, trainloader, model, criterion, optimizer, epoch)

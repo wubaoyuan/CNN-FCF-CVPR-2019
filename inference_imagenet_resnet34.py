@@ -6,20 +6,18 @@ import torch.nn as nn
 from torch.autograd import Variable
 
 import numpy as np
-import time
-from PIL import Image
 
-from tools import *
+from functions import *
 from models import *
 
 import argparse
 
 
-parser = argparse.ArgumentParser(description='ImageNet inference')
+parser = argparse.ArgumentParser(description='Inference a cnn model on ImageNet')
 
 parser.add_argument('-b', '--batch-size', default=50, type=int,
                     metavar='N', help='mini-batch size')
-parser.add_argument('--finetune-model', default='./checkpoints/inference/finetune_resnet34_best_same015.pth.tar', type=str,
+parser.add_argument('--finetune-model', default='./checkpoints/inference/finetune_resnet34_best_same025.pth.tar', type=str,
                     help='finetune model checkpoint')
 parser.add_argument('--model', default='resnet34', type=str,
                     help='choose the training mode')
@@ -55,12 +53,12 @@ def main():
     for cfg in cfgs :
         cfg_list.extend(cfg)
         
-    pruned_model=training_models[args.model](mode='inference', ones_list=ones_list, output_list = cfg_list)
-    pruned_model = pruned_model.eval().cuda()
+    inference_model=training_models[args.model](mode='inference', ones_list=ones_list, output_list = cfg_list)
+    inference_model = inference_model.eval().cuda()
     
     #assign parameters
     i=1
-    for [m0, m1] in zip(finetune_model.modules(), pruned_model.modules()):   #assign value for pruned_model
+    for [m0, m1] in zip(finetune_model.modules(), inference_model.modules()):   #assign value for inference_model
         if isinstance(m0, nn.Conv2d):
             if m0.kernel_size == (1,1):  #down-sampling convolution.
                 m1.weight.data = m0.weight.data.clone()
@@ -89,21 +87,21 @@ def main():
     #theoretical compressing rate
     full_model = training_models[args.model](mode='full').cuda()
     full_parameters = sum([param.nelement() for param in full_model.parameters()])
-    pruned_parameters = sum([param.nelement() for param in pruned_model.parameters()])
-    print('sparse rate:{}'.format(1-float(pruned_parameters)/full_parameters))
+    inference_parameters = sum([param.nelement() for param in inference_model.parameters()])
+    print('sparse rate:{}'.format(1-float(inference_parameters)/full_parameters))
 
     #theoretical reduced flops rate
     test_data = Variable(torch.randn(1,3,224,224)).cuda()
     full_flops = calculate_flops(full_model, test_data)
-    pruned_flops = calculate_flops(pruned_model, test_data)
-    print('flops sparse rate:{}'.format(1-float(pruned_flops) / full_flops))
+    inference_flops = calculate_flops(inference_model, test_data)
+    print('flops sparse rate:{}'.format(1-float(inference_flops) / full_flops))
 
 
     #validation
     testloader = imagenet_testdata(args.batch_size)
     criterion = nn.CrossEntropyLoss()
     validate(testloader, finetune_model, criterion)
-    validate(testloader, pruned_model, criterion)
+    validate(testloader, inference_model, criterion)
 
 
 

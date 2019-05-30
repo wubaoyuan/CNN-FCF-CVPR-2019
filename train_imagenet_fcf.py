@@ -1,5 +1,4 @@
 import argparse
-import shutil
 from datetime import datetime
 import os
 os.environ["CUDA_VISIBLE_DEVICES"]= '0,1,2,3'
@@ -7,36 +6,34 @@ os.environ["CUDA_VISIBLE_DEVICES"]= '0,1,2,3'
 import torch
 import torch.nn as nn
 
-from tools import *
+from functions import *
 from models import *
 
 
-parser = argparse.ArgumentParser(description='PyTorch ImageNet Training')
+parser = argparse.ArgumentParser(description='Training a cnn-fcf model on ImageNet')
 
 parser.add_argument('--epochs', default=30, type=int, metavar='N',
                     help='number of total epochs to run')
 parser.add_argument('--decay-epochs', default=10, type=int,
                     help='number of epochs to decay the learning rate')
-parser.add_argument('--start-epoch', default=0, type=int, metavar='N',
-                    help='manual epoch number (useful on restarts)')
 parser.add_argument('--print-freq', '-p', default=100, type=int,
                     metavar='N', help='print frequency')
 parser.add_argument('-b', '--batch-size', default=256, type=int,
-                    metavar='N', help='mini-batch size (default: 256)')
+                    metavar='N', help='mini-batch size')
 parser.add_argument('--lr', '--learning-rate', default=0.1, type=float,
                     metavar='LR', help='initial learning rate')
 parser.add_argument('--alpha', default=0.65, type=float,
                     help='the trade-off between the cnn and admm')
 parser.add_argument('--sparse-rate', default=0.25, type=float,
                     help='the whole pruning weight ratio')
-parser.add_argument('--pretrained-model', default='./checkpoints/pretrain/resnet34_full.pth', type=str,
-                    help='the path to save the best result')
 parser.add_argument('--model', default='resnet34', type=str,
                     help='choose the training mode')
 parser.add_argument('--training-mode', default='sparse', type=str,
                     help='choose the training mode')
 parser.add_argument('--sparse-mode', default='identical_ratio', type=str,
                     help='choose the mode to set sparse rate')
+parser.add_argument('--pretrained-model', default='./checkpoints/pretrain/resnet34_full.pth', type=str,
+                    help='the path to save the best result')
 parser.add_argument('--checkpoint-name', default='./checkpoints/fcf/sparse_resnet34_same025', type=str,
                     help='the path to save the checkpoint')
 
@@ -72,8 +69,7 @@ def main():
     train_accuracy=[]
     test_accuracy=[]
     test_loss=[]
-    pruning_accuracy=[] 
-    for epoch in range(args.start_epoch, args.epochs):
+    for epoch in range(args.epochs):
         adjust_learning_rate(optimizer, epoch) 
 
         prec1_tr,loss_tr = train(args, trainloader, model, criterion, optimizer, epoch)
@@ -86,8 +82,7 @@ def main():
         
         np_v_list = store_v(model)
         pruning_prec1, _= validate(testloader, model, criterion)
-        reload_v(model, np_v_list)
-        pruning_accuracy.append(pruning_prec1)  
+        reload_v(model, np_v_list) 
 
     
         # remember best prec@1 and save checkpoint
