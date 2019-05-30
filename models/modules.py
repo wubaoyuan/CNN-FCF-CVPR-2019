@@ -100,7 +100,7 @@ class PrunedConv2d(nn.Module):
         self.output_width = output_width
 
         self.weight = nn.Parameter(torch.Tensor(self.k_out, self.k_in, *self.kernel_size))   
-        self.output = Variable(torch.zeros(50, self.out_channels, self.output_width, self.output_width))#.cuda() 
+        self.output = Variable(torch.zeros(50, self.out_channels, self.output_width, self.output_width)).cuda() 
         
         if bias:
             self.bias = nn.Parameter(torch.Tensor(self.k_out))

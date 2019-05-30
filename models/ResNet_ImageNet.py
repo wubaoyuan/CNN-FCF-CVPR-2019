@@ -231,10 +231,7 @@ class ResNet_Bottleneck(nn.Module):
         layers.append(block( mode, self.inplanes, filters[0:3], ones[0:3+1], outputs[0:3], stride, downsample))
         self.inplanes = filters[2]
         for i in range(1, n):
-            if i ==1:
-                layers.append(block(mode, self.inplanes, filters[i*3:(i+1)*3], ones[i*3:(i+1)*3+1], outputs[i*3:(i+1)*3]))
-            else:
-                layers.append(block(mode, self.inplanes, filters[i*3:(i+1)*3], ones[i*3:(i+1)*3+1], outputs[i*3:(i+1)*3]))
+            layers.append(block(mode, self.inplanes, filters[i*3:(i+1)*3], ones[i*3:(i+1)*3+1], outputs[i*3:(i+1)*3]))
         return nn.Sequential(*layers)
 
     def forward(self, x):
