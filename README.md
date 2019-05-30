@@ -16,6 +16,7 @@ This is a Pytorch implementation of our paper "Compressing Convolutional Neural 
 - [Running time analysis](#Running-time-analysis)
 
 ## Requirements
+- Anaconda
 - Python 3.6
 - PyTorch 0.3.1
 - TorchVision 0.2.0
