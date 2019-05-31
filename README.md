@@ -23,7 +23,7 @@ This is a Pytorch implementation of our paper "Compressing Convolutional Neural 
 - [OSQP](https://osqp.org/docs/get_started/python.html)
 
 ## Inference checkpoint files
-The trained models files can be found in [google drive](https://drive.google.com/drive/folders/1VGqpOhAGe9YQcyZTGbzitsLuELjQdsXW?usp=sharing), which can be used to reproduce the results of our paper.
+The inference models files can be found in [google drive](https://drive.google.com/drive/folders/1VGqpOhAGe9YQcyZTGbzitsLuELjQdsXW?usp=sharing), which can be used to reproduce the results of our paper.
 
 ## Training fcf models
 #### Training CIFAR-10
