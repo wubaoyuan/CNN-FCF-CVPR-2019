@@ -18,6 +18,7 @@ Above is the overview of the workflow of filter pruning on l-th layer, where the
   - [Reproduce the CIFAR-10 results in our paper](#Reproduce-the-CIFAR-10-results-in-our-paper)
   - [Reproduce the ImageNet results in our paper](#Reproduce-the-ImageNet-results-in-our-paper)
 - [Running time analysis](#Running-time-analysis)
+- [Citation](#Citation)
 
 ## Requirements
 - Anaconda
@@ -157,3 +158,11 @@ We present the running time of the pruned model conresponds to the reference mod
 
 As shown on the table, the convolution layers running time &darr; is lower than the theoretical convolution layers flops &darr;, the reason is similar to the single layer results. Moreover, due to the time cost in the BN, Relu and Fully-connected layers, the model running time &darr; is lower than convolution layers running time &darr;. In general, the running time reduction of the pruned convolution layers is consistent with the theoretical flops &darr;.
 
+## Citation
+@InProceedings{Li_2019_CVPR,
+author = {Li, Tuanhui and Wu, Baoyuan and Yang, Yujiu and Fan, Yanbo and Zhang, Yong and Liu, Wei},
+title = {Compressing Convolutional Neural Networks via Factorized Convolutional Filters},
+booktitle = {The IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+month = {June},
+year = {2019}
+}
