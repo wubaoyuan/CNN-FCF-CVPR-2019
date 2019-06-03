@@ -1,4 +1,4 @@
-# [CNN-FCF](http://openaccess.thecvf.com/CVPR2019_search.py)
+# [CNN-FCF](http://openaccess.thecvf.com/content_CVPR_2019/html/Li_Compressing_Convolutional_Neural_Networks_via_Factorized_Convolutional_Filters_CVPR_2019_paper.html)
 This is a Pytorch implementation of our paper "Compressing Convolutional Neural Networks via Factorized Convolutional Filters" published in CVPR 2019.
 <div align="center">
 <img src="/framework.png" width = 95%>
