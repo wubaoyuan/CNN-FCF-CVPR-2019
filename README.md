@@ -3,6 +3,7 @@ This is a Pytorch implementation of our paper "Compressing Convolutional Neural 
 <div align="center">
 <img src="/framework.png">
 </div>
+Above is the overview of the workflow of filter pruning on l-th layer, where the dotted green cubes indicate the pruned filters. (Top): Traditional pruning consists of three sequential stages: pre-training, selecting filters according to a ranking criterion, and fine-tuning. (Bottom): Our method conducts the filter learning and filter selection jointly, through training factorized convolutional filters.
 
 ## Table of Contents
 - [Requirements](#Requirements)
