@@ -1,7 +1,7 @@
 # CNN-FCF
 This is a Pytorch implementation of our paper "Compressing Convolutional Neural Networks via Factorized Convolutional Filters" published in CVPR 2019.
 <div align="center">
-<img src="/framework.png">
+<img src="/framework.png" width = 80%>
 </div>
 Above is the overview of the workflow of filter pruning on l-th layer, where the dotted green cubes indicate the pruned filters. (Top): Traditional pruning consists of three sequential stages: pre-training, selecting filters according to a ranking criterion, and fine-tuning. (Bottom): Our method conducts the filter learning and filter selection jointly, through training factorized convolutional filters.
 
