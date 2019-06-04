@@ -33,58 +33,34 @@ The inference models files can be found in [google drive](https://drive.google.c
 ## Training fcf models
 #### Training CIFAR-10
 ```
-sh ./scripts/train_cifar_fcf_resnet20.sh
-
-sh ./scripts/train_cifar_fcf_resnet32.sh
-
-sh ./scripts/train_cifar_fcf_resnet56.sh
-
-sh ./scripts/train_cifar_fcf_resnet110.sh
+sh ./scripts/train_cifar_fcf_resnet*.sh
 ```
 #### Training ImageNet
 ```
-sh ./scripts/train_imagenet_fcf_resnet34.sh
-
-sh ./scripts/train_imagenet_fcf_resnet50.sh
+sh ./scripts/train_imagenet_fcf_resnet*.sh
 ```
 
 ## Finetuning
 Due to the numerical reason, there are still small changes after optimization, so we usually use finetuning to recover the model performance.
 #### Finetuning CIFAR-10
 ```
-sh ./scripts/finetune_cifar_resnet20.sh
-
-sh ./scripts/finetune_cifar_resnet32.sh
-
-sh ./scripts/finetune_cifar_resnet56.sh
-
-sh ./scripts/finetune_cifar_resnet110.sh
+sh ./scripts/finetune_cifar_resnet*.sh
 ```
 #### Finetuning ImageNet
 ```
-sh ./scripts/finetune_imagenet_resnet34.sh
-
-sh ./scripts/finetune_imagenet_resnet50.sh
+sh ./scripts/finetune_imagenet_resnet*.sh
 ```
 
 ## Inference
 
 #### Reproduce the CIFAR-10 results in our paper
 ```
-sh ./scripts/inference_cifar_resnet20.sh
-
-sh ./scripts/inference_cifar_resnet32.sh
-
-sh ./scripts/inference_cifar_resnet56.sh
-
-sh ./scripts/inference_cifar_resnet110.sh
+sh ./scripts/inference_cifar_resnet*.sh
 ```
 
 #### Reproduce the ImageNet results in our paper
 ```
-sh ./scripts/inference_imagenet_resnet34.sh
-
-sh ./scripts/inference_imagenet_resnet50.sh
+sh ./scripts/inference_imagenet_resnet*.sh
 ```
 
 ## Running time analysis
