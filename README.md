@@ -39,6 +39,7 @@ sh ./scripts/train_cifar_fcf_resnet*.sh
 ```
 sh ./scripts/train_imagenet_fcf_resnet*.sh
 ```
+Note: * in CIFAR-10 indicates 20,32,56,110, and 34,50 in ImageNet.
 
 ## Finetuning
 Due to the numerical reason, there are still small changes after optimization, so we usually use finetuning to recover the model performance.
